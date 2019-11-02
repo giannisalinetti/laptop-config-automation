@@ -1,0 +1,21 @@
+---
+- name: Configure laptop with standard tooling
+  hosts: localhost
+  gather_facts: true
+  pre_tasks:
+    - name: Pre tasks section
+      debug:
+        msg: TODO
+
+  roles:
+    - utilities
+    - runtimes
+    - containers
+    - dev_tools
+    - virtualization
+
+  tasks:
+    - name: Tasks section
+      debug:
+        msg: TODO
+

@@ -1,0 +1,6 @@
+- name: "Restore restic config files"
+  synchronize:
+    src: files/restic/
+    dest: "/home/{{ default_user }}/"
+    archive: true
+    copy_links: true

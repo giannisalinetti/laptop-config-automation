@@ -1,0 +1,31 @@
+---
+# tasks file for utilities
+- name: "Configure basic tools and utilities"
+  dnf:
+    name: "{{ utilities_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Configure basic tools and utilities"
+  yum:
+    name: "{{ utilities_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+
+- name: "Include Restic configurations"
+  include_tasks: restic.yml
+  when: "'restic' in utilities_pkg_list"
+
+- name: "Include Argo CD latest release"
+  include_tasks: argocd.yml
+  when: "'argocd' in utilities_no_pkg_list"
+
+- name: "Ensure Tuned service is started and enabled"
+  service:
+    name: tuned
+    state: started
+    enabled: true
+  become: true
+  when: "'tuned' in utilities_pkg_list"

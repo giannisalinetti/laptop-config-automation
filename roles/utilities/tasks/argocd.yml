@@ -1,0 +1,17 @@
+- name: "Set fact for latest argocd stable release"
+  uri: 
+    url: https://api.github.com/repos/argoproj/argo-cd/releases/latest
+  register: argocd_latest_uri
+
+- name: "Set fact of latest stable version"
+  set_fact: 
+    argocd_latest: "{{ argocd_latest_uri.json.tag_name }}"
+
+- name: "Download latest version of argocd"
+  get_url:
+    url: "https://github.com/argoproj/argo-cd/releases/download/{{ argocd_latest }}/argocd-linux-amd64"
+    dest: /usr/local/bin/argocd
+    mode: 0755
+    owner: root
+    group: root
+  become: true

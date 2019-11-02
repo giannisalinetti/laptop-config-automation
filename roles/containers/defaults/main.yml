@@ -1,0 +1,14 @@
+---
+# defaults file for containers
+container_tools_pkg_list:
+  - podman
+  - buildah
+  - skopeo
+  - docker
+
+default_registries:
+  - "'docker.io'"
+  - "'registry.fedoraproject.org'"
+  - "'quay.io'"
+  - "'registry.access.redhat.com'"
+  - "'registry.centos.org'"

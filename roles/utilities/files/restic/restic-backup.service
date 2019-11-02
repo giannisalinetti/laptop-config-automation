@@ -1,0 +1,11 @@
+[Unit]
+Description=Restic backup script trigger
+Requires=media-YourMediaLabel.mount
+After=media-YourMediaLabel.mount
+
+[Service]
+ExecStart=/home/you/bin/triggerScript.sh
+
+[Install]
+WantedBy=media-YourMediaLabel.mount
+

@@ -1,0 +1,27 @@
+---
+default_user: gbsalinetti
+
+utilities_pkg_list:
+  - git
+  - vim
+  - google-chrome
+  - keepassx
+  - tcpdump
+  - wireshark
+  - restic
+  - sysstat
+  - bcc-tools
+  - jq
+  - tuned
+  - tuned-gtk
+  - fuse-exfat
+  - exfat-utils
+
+utilities_no_pkg_list:
+  - argocd
+
+container_tools_pkg_list:
+  - podman
+  - buildah
+  - skopeo
+  - docker
