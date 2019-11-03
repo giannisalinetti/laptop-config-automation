@@ -1,0 +1,3 @@
+---
+hashicorp_url: "https://releases.hashicorp.com"
+terraform_download_url: "{{ hashicorp_url }}/terraform/{{ terraform_latest }}/terraform_{{ terraform_latest }}_linux_amd64.zip"

@@ -1,0 +1,4 @@
+---
+# vars file for dotfiles
+private_key: "/home/{{ default_user }}/.ssh/id_rsa"
+public_key: "/home/{{ default_user }}/.ssh/id_rsa.pub"

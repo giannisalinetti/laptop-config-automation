@@ -11,15 +11,16 @@
         success_msg: "Distribution check passed"
 
   roles:
-    - utilities
-    - runtimes
     - virtualization
+    - runtimes
+    - utilities
     - dev_tools
     - containers
     - multimedia
+    - dotfiles
 
   tasks:
-    - name: Tasks section
+    - name: "Print completion message"
       debug:
-        msg: TODO
+        msg: "Laptop provisioning completed"
 

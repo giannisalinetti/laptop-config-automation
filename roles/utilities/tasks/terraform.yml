@@ -1,0 +1,38 @@
+- name: "Register content for latest terraform stable release"
+  uri: 
+    url: "https://api.github.com/repos/hashicorp/terraform/releases/latest"
+  register: terraform_latest_uri
+
+- name: "Find tag for latest stable version"
+  set_fact: 
+    terraform_latest: "{{ terraform_latest_uri.json.tag_name | regex_replace('v') }}"
+
+- name: "Ensure Terraform latest release is installed"
+  unarchive:
+    src: "{{ terraform_download_url }}"
+    dest: "/usr/local/bin"
+    remote_src: true
+    mode: 0755
+  become: true
+
+- name: "Configure provider plugins folder"
+  file:
+    path: "/home/{{ default_user }}/.terraform.d/plugins"
+
+- name: "Register content for latest terraform-provider-libvirt stable release"
+  uri: 
+    url: "https://api.github.com/repos/dmacvicar/terraform-provider-libvirt/releases/latest"
+  register: tpl_latest_uri
+
+- name: "Find tag for latest stable version"
+  set_fact: 
+    tpl_latest: "{{ tpl_latest_uri.json.tag_name }}"
+
+# Using the static tpk_pkg_name variable is a temporary workaround due to the
+# adoption of the git commit in the file name
+- name: "Download latest version of terraform-provider-libvirt"
+  unarchive:
+    src: "https://github.com/dmacvicar/terraform-provider-libvirt/releases/download/{{ tpl_latest }}/{{ tpl_pkg_name }}"
+    dest: "/home/{{ default_user }}/.terraform.d/plugins/"
+    remote_src: true
+    mode: 0755

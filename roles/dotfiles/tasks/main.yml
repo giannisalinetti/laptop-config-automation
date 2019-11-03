@@ -1,0 +1,32 @@
+---
+# tasks file for dotfiles
+- name: "Ensure private key is installed"
+  copy:
+    content: "{{ lookup('file', 'id_rsa') }}"
+    dest: "{{ private_key }}"
+    mode: 0400
+
+- name: "Ensure public key is installed"
+  copy:
+    content: "{{ lookup('file', 'id_rsa.pub') }}"
+    dest: "{{ public_key }}"
+    mode: 0664
+
+- name: "Clone dotfiles repository to a temporary folder"
+  git:
+    repo: "{{ dotfiles_repo }}"
+    dest: /tmp/dotfiles_temp
+    key_file: "/home/{{ default_user}}/.ssh/id_rsa"
+    version: master
+    recursive: true
+    force: true
+
+- name: "Synchronize dotfiles content"
+  synchronize:
+    src: /tmp/dotfiles_temp/
+    dest: "/home/{{ default_user }}/"
+
+- name: "Remove temporary dotfiles folder"
+  file:
+    path: /tmp/dotfiles_temp
+    state: absent

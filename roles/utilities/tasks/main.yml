@@ -40,6 +40,10 @@
   include_tasks: argocd.yml
   when: "'argocd' in utilities_no_pkg_list"
 
+- name: "Include Terraform latest release"
+  include_tasks: terraform.yml
+  when: "'terraform' in utilities_no_pkg_list"
+
 - name: "Ensure Tuned service is started and enabled"
   service:
     name: tuned

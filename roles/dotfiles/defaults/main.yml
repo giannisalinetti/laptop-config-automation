@@ -1,0 +1,3 @@
+---
+# defaults file for dotfiles
+dotfiles_repo: "git@github.com:giannisalinetti/dotfiles.git"

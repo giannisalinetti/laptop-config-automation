@@ -2,3 +2,6 @@
 # defaults file for utilities
 utilities_pkg_list: []
 utilities_no_pkg_list: []
+terraform_version: "0.12.13"
+tpl_pkg_name: "terraform-provider-libvirt-0.6.0+git.1569597268.1c8597df.Fedora_28.x86_64.tar.gz"
+

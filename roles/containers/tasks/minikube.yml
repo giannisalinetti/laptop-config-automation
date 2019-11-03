@@ -23,3 +23,8 @@
     dest: /usr/local/bin
     mode: 0755
   become: true
+
+- name: "Configure minikube environment vars"
+  lineinfile:
+    path: "/home/{{ default_user }}/.bash_profile"
+    line: "export MINIKUBE_IN_STYLE=false"
