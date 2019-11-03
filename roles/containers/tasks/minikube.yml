@@ -1,0 +1,25 @@
+---
+- name: "Set fact on the latest kubectl release"
+  set_fact: 
+    kubectl_stable: "{{ lookup('url', 'https://storage.googleapis.com/kubernetes-release/release/stable.txt') }}"
+
+- name: "Ensure kubectl is installed"
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_stable }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin
+    mode: 0755
+  become: true
+
+- name: "Ensure docker machine driver for kvm latest release is installed"
+  get_url:
+    url: "https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2"
+    dest: /usr/local/bin
+    mode: 0755
+  become: true
+
+- name: "Ensure latest minikube release is installed"
+  get_url:
+    url: "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
+    dest: /usr/local/bin
+    mode: 0755
+  become: true

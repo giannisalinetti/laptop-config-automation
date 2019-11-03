@@ -1,2 +1,3 @@
 ---
 # defaults file for virtualization
+virtualization_pkg_list: []

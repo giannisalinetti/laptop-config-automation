@@ -30,3 +30,13 @@
     dest: /etc/containers/registries.conf
     mode: 0644
   become: true
+
+- name: "Collect package facts"
+  package_facts:
+    manager: auto
+
+- name: "Include minikube configuration tasks"
+  include_tasks: minikube.yml
+  when: 
+    - setup_minikube
+    - '"libvirt-daemon" in ansible_facts.packages'

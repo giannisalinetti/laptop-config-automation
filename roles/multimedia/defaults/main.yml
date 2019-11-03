@@ -1,2 +1,3 @@
 ---
 # defaults file for multimedia
+multimedia_pkg_list: []

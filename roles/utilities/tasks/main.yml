@@ -1,5 +1,23 @@
 ---
 # tasks file for utilities
+- name: "RPM Fusion repos are configured on Fedora"
+  dnf:
+    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_version'] }}.noarch.rpm"
+    state: present
+  become: true
+  when: 
+    - enable_rpmfusion
+    - ansible_facts['distribution'] == 'Fedora'
+
+- name: "RPM Fusion repos are configured on RHEL"
+  dnf:
+    name: "https://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_facts['distribution_version'] }}.noarch.rpm"
+    state: present
+  become: true
+  when: 
+    - enable_rpmfusion
+    - ansible_facts['distribution'] == 'RedHat'
+
 - name: "Configure basic tools and utilities"
   dnf:
     name: "{{ utilities_pkg_list }}"

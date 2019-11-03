@@ -4,15 +4,19 @@
   gather_facts: true
   pre_tasks:
     - name: Pre tasks section
-      debug:
-        msg: TODO
+      assert:
+        that:
+          - ansible_facts['distribution'] == 'Fedora' or ansible_facts['distribution'] == 'RedHat'
+        fail_msg: "This playbook can be used only on Fedora or RHEL machines."
+        success_msg: "Distribution check passed"
 
   roles:
     - utilities
     - runtimes
-    - containers
-    - dev_tools
     - virtualization
+    - dev_tools
+    - containers
+    - multimedia
 
   tasks:
     - name: Tasks section

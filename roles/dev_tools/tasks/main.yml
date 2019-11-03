@@ -1,2 +1,48 @@
 ---
-# tasks file for dev_tools
+# tasks file for multimedia
+- name: "Configure GPG keys for VSCode repository"
+  rpm_key:
+    state: present
+    key: "{{ vscode_key_url }}"
+  become: true
+  when: "'code' in devtools_pkg_list"
+
+- name: "Configure yum repository for VSCode"
+  yum_repository:
+    state: present
+    name: code
+    description: Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: true
+    gpgcheck: true
+    gpgkey: "{{ vscode_key_url }}"
+  become: true
+  when: "'code' in devtools_pkg_list"
+
+- name: "Ensure Dev Tools packages are installed on Fedora"
+  dnf:
+    name: "{{ devtools_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Ensure Dev Tools packages are installed on RHEL"
+  yum:
+    name: "{{ devtools_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+
+- name: "Ensure Dev Tools group packages are installed on Fedora"
+  dnf:
+    name: "{{ devtools_group_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Ensure Dev Tools group packages are installed on RHEL"
+  yum:
+    name: "{{ devtools_group_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)

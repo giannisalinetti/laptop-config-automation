@@ -1,6 +1,11 @@
 ---
+# The default user for this laptop
 default_user: gbsalinetti
 
+# Enable rpmfusion free repos
+enable_rpmfusion: true
+
+# The list of utilities managed by yum/dnf
 utilities_pkg_list:
   - git
   - vim
@@ -16,12 +21,74 @@ utilities_pkg_list:
   - tuned-gtk
   - fuse-exfat
   - exfat-utils
+  - pcp
+  - pcp-gui
+  - pcp-system-tools
+  - pcp-pmda-podman
+  - pcp-pmda-docker
+  - libpcap
+  - libpcap-devel
 
+# The list of utilities not managed by yum/dnf
 utilities_no_pkg_list:
   - argocd
 
+# The list of virtualization packages managed by dnf/yum
+virtualization_pkg_list:
+  - virt-install
+  - libvirt-daemon
+  - libvirt-daemon-config-network
+  - libvirt-daemon-kvm
+  - qemu-kvm
+  - virt-manager
+  - virt-viewer
+  - guestfs-browser
+  - libguestfs-tools
+  - python3-libguestfs
+  - virt-top
+
+# The list of container tools
 container_tools_pkg_list:
   - podman
   - buildah
   - skopeo
   - docker
+  - atomic
+  - origin-clients
+  - flatpack
+
+# Enable/disable minikube setup
+setup_minikube: true
+
+# The list of runtimes managed by yum/dnf
+runtimes_pkg_list:
+  - golang
+  - java-11-openjdk.x86_64
+  - java-11-openjdk-devel
+
+# The list of multimedia utilities managed by yum/dnf
+multimedia_pkg_list:
+  - gimp
+  - darktable
+  - rawtherapee
+  - raw-thumbnailer
+  - ufraw
+  - vlc
+
+# GPG key and repo url for Microsoft VSCode
+vscode_key_url: https://packages.microsoft.com/keys/microsoft.asc
+vscode_repo_url: https://packages.microsoft.com/yumrepos/vscode
+
+# The list of development tools managed by yum/dnf
+devtools_pkg_list:
+  - code
+  - maven
+  - vagrant
+
+# The list of development tools managed as package groups
+devtools_group_pkg_list:
+  - '@Development Tools'
+  - '@C Development Tools and Libraries'
+  - '@Development Libraries'
+
+

@@ -5,6 +5,9 @@ container_tools_pkg_list:
   - buildah
   - skopeo
   - docker
+  - atomic
+  - origin-clients
+  - flatpack
 
 default_registries:
   - "'docker.io'"
@@ -12,3 +15,5 @@ default_registries:
   - "'quay.io'"
   - "'registry.access.redhat.com'"
   - "'registry.centos.org'"
+
+setup_minikube: false

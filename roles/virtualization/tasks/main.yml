@@ -1,2 +1,27 @@
 ---
 # tasks file for virtualization
+- name: "Configure virtualization packages for Fedora"
+  dnf:
+    name: "{{ virtualization_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Configure virtualization packages for RHEL"
+  yum:
+    name: "{{ virtualization_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+
+- name: "Collect package facts"
+  package_facts:
+    manager: auto
+
+- name: "Ensure libvirtd service is started and enabled"
+  service:
+    name: libvirtd
+    state: started
+    enabled: true
+  when: '"libvirt-daemon" in ansible_facts.packages'
+

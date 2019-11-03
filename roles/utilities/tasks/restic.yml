@@ -4,3 +4,8 @@
     dest: "/home/{{ default_user }}/"
     archive: true
     copy_links: true
+
+- name: "Set Restic variables"
+  lineinfile:
+    line: "RESTIC_PASSWORD_FILE=/home/{{ default_user }}/.restic"
+    path: "/home/{{ default_user }}/.bash_profile"

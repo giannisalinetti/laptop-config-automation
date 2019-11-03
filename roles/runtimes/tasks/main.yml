@@ -1,2 +1,33 @@
 ---
 # tasks file for runtimes
+- name: "Install runtime packages on Fedora"
+  dnf:
+    name: "{{ runtimes_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Install runtime packages on RHEL"
+  yum:
+    name: "{{ runtimes_pkg_list }}"
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+
+- name: "Configure Go environment"
+  file:
+    path: "/home/{{ default_user }}/go/{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - src
+    - pkg
+    - bin
+  when: "'golang' in runtimes_pkg_list"
+
+- name: "Customize Go variables"
+  blockinfile:
+    dest: "/home/{{ default_user }}/.bash_profile"
+    block: "{{ lookup('template', 'golang_vars.j2') }}"
+  when: "'golang' in runtimes_pkg_list"
+
