@@ -36,6 +36,10 @@
   include_tasks: restic.yml
   when: "'restic' in utilities_pkg_list"
 
+- name: "Include Google Cloud SDK latest packages"
+  include_tasks: gcloud.yml
+  when: "'google-cloud-sdk' in cloud_utils_pkg_list"
+
 - name: "Include Argo CD latest release"
   include_tasks: argocd.yml
   when: "'argocd' in utilities_no_pkg_list"

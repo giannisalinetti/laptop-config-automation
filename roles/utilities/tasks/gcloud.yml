@@ -1,0 +1,28 @@
+---
+- name: "Ensure the Google Cloud SDK repository is enabled"
+  yum_repository:
+    name: google-cloud-sdk
+    state: present
+    description: "Google Cloud SDK"
+    baseurl: https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey:
+      - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+      - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  become: true
+
+- name: "Ensure google-cloud-sdk package is installed on Fedora"
+  dnf:
+    name: google-cloud-sdk
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+
+- name: "Ensure google-cloud-sdk package is installed on RHEL"
+  yum:
+    name: google-cloud-sdk
+    state: present
+  become: true
+  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)

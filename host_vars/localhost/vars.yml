@@ -34,6 +34,9 @@ utilities_no_pkg_list:
   - argocd
   - terraform
 
+cloud_utils_pkg_list:
+  - google-cloud-sdk
+
 # I hope this is a temporary workaround
 tpl_pkg_name: "terraform-provider-libvirt-0.6.0+git.1569597268.1c8597df.Fedora_28.x86_64.tar.gz"
 
