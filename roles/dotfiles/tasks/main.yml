@@ -26,6 +26,20 @@
     src: /tmp/dotfiles_temp/
     dest: "/home/{{ default_user }}/"
 
+- name: "Find all private keys to be restored"
+  find:
+    paths: "/home/{{ default_user }}/.ssh/"
+    use_regex: true
+    contains: "-----BEGIN.*PRIVATE KEY-----"
+    pattern: "^.*$"
+  register: find_results
+
+- name: "Ensure private keys have correct permissions"
+  file:
+    path: "{{ item.path }}"
+    mode: 0600
+  loop: "{{ find_results.files }}"
+
 - name: "Remove temporary dotfiles folder"
   file:
     path: /tmp/dotfiles_temp
