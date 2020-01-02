@@ -18,6 +18,8 @@
 - name: "Configure provider plugins folder"
   file:
     path: "/home/{{ default_user }}/.terraform.d/plugins"
+    state: directory
+    mode: 0755
 
 - name: "Register content for latest terraform-provider-libvirt stable release"
   uri: 
