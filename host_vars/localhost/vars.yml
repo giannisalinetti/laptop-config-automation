@@ -8,6 +8,7 @@ enable_rpmfusion: true
 # The list of utilities managed by yum/dnf
 utilities_pkg_list:
   - git
+  - tig
   - vim
   - google-chrome
   - keepassx
