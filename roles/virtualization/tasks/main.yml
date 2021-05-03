@@ -16,5 +16,6 @@
     name: libvirtd
     state: started
     enabled: true
+  become: true
   when: '"libvirt-daemon" in ansible_facts.packages'
 

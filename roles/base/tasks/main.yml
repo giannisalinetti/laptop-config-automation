@@ -6,9 +6,8 @@
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
-- name: "Confiugure base system packages"
-  yum:
-    name: "{{ base_pkg_list }}"
-    state: present
+- name: "Enable Google Chrome repository"
+  command: dnf config-manager --set-enabled google-chrome
   become: true
-  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+

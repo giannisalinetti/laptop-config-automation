@@ -9,7 +9,7 @@
 - name: "Clone dotfiles repository to a temporary folder"
   git:
     repo: "{{ dotfiles_repo }}"
-    dest: /tmp/dotfiles_temp
+    dest: "/home/{{ default_user }}/dotfiles"
     key_file: "/home/{{ default_user}}/.ssh/id_rsa"
     version: master
     recursive: true
@@ -18,7 +18,7 @@
 
 - name: "Synchronize dotfiles content"
   synchronize:
-    src: /tmp/dotfiles_temp/
+    src: "/home/{{ default_user }}/dotfiles/"
     dest: "/home/{{ default_user }}/"
 
 - name: "Find all private keys to be restored"
@@ -35,7 +35,12 @@
     mode: 0600
   loop: "{{ find_results.files }}"
 
+- name: "Ensure .gnupg folder has correct permissions"
+  file:
+    path: "/home/{{ default_user }}/.gnupg"
+    mode: 0700
+
 - name: "Remove temporary dotfiles folder"
   file:
-    path: /tmp/dotfiles_temp
+    path: "/home/{{ default_user }}/dotfiles"
     state: absent

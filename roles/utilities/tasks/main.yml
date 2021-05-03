@@ -4,10 +4,19 @@
   dnf:
     name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
     state: present
+    disable_gpg_check: true
   become: true
   when: 
     - enable_rpmfusion
     - ansible_facts['distribution'] == 'Fedora'
+
+- name: "Include Terraform configuration"
+  include_tasks: terraform.yml
+  when: "'terraform' in utilities_pkg_list"
+
+- name: "Include Google Cloud SDK latest packages"
+  include_tasks: gcloud.yml
+  when: "'google-cloud-sdk' in cloud_utils_pkg_list"
 
 - name: "Configure basic tools and utilities"
   dnf:
@@ -16,17 +25,9 @@
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
-- name: "Include Terraform configuration"
-  include_tasks: terraform.yml
-  when: "'terraform' in utilities_pkg_list"
-
 - name: "Include Restic configurations"
   include_tasks: restic.yml
   when: "'restic' in utilities_pkg_list"
-
-- name: "Include Google Cloud SDK latest packages"
-  include_tasks: gcloud.yml
-  when: "'google-cloud-sdk' in cloud_utils_pkg_list"
 
 - name: "Ensure Tuned service is started and enabled"
   service:

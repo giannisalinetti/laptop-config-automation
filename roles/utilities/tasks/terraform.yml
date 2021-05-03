@@ -6,8 +6,10 @@
     gpgcheck: no
     enabled: yes
     gpgkey: https://rpm.releases.hashicorp.com/gpg
+  become: true
 
 - name: Ensure Terraform package is installed
   dnf:
     name: terraform
     state: latest
+  become: true
