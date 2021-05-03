@@ -1,13 +1,29 @@
 ---
-- name: "Confiugure base system packages"
+- name: "Configure btrfs subvolumes on /etc/fstab for optimized SSD performances"
+  replace:
+    path: /etc/fstab
+    regexp: '^(UUID=.* */.*)( +btrfs)( +subvol=.*,compress=zstd:1,x-systemd.device-timeout=0)( 0 0)$'
+    replace: '\1\2\3,ssd,noatime,space_cache,commit=120,discard=async\4'
+      #after: '^.*timeout=0,'
+      #before: ' 0 0$'
+  become: true
+
+- name: "Update system packages"
+  dnf:
+    name: "*"
+    state: latest
+  become: true
+
+- name: "Confiugure additional base system packages"
   dnf:
     name: "{{ base_pkg_list }}"
     state: present
   become: true
-  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
 - name: "Enable Google Chrome repository"
-  command: dnf config-manager --set-enabled google-chrome
+  command: 
+    cmd: dnf config-manager --set-enabled google-chrome
+    warn: false
   become: true
-  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
+  
 

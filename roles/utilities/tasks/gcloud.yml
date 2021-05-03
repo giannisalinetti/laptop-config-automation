@@ -18,4 +18,3 @@
     name: google-cloud-sdk
     state: present
   become: true
-  when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
