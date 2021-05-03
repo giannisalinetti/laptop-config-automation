@@ -1,11 +1,5 @@
 ---
 # tasks file for dotfiles
-- name: "Ensure private key is installed"
-  copy:
-    content: "{{ lookup('file', 'id_rsa') }}"
-    dest: "{{ private_key }}"
-    mode: 0400
-
 - name: "Ensure public key is installed"
   copy:
     content: "{{ lookup('file', 'id_rsa.pub') }}"

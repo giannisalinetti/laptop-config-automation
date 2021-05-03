@@ -5,13 +5,27 @@ default_user: gbsalinetti
 # Enable rpmfusion free repos
 enable_rpmfusion: true
 
+base_pkg_list:
+  - vim
+  - git
+  - flatpak
+  - NetworkManager-openvpn-gnome
+  - setroubleshoot-server
+  - fedora-workstation-repositories
+
 # The list of utilities managed by yum/dnf
 utilities_pkg_list:
   - git
   - tig
-  - vim
-  - google-chrome
+  - tmate
+  - alacritty
+  - fish
+  - tmate
+  - telegram-desktop
+  - google-chrome-stable
   - keepassx
+  - pass
+  - pass-otp
   - tcpdump
   - wireshark
   - restic
@@ -29,17 +43,11 @@ utilities_pkg_list:
   - pcp-pmda-docker
   - libpcap
   - libpcap-devel
-
-# The list of utilities not managed by yum/dnf
-utilities_no_pkg_list:
-  - argocd
   - terraform
 
 cloud_utils_pkg_list:
   - google-cloud-sdk
-
-# I hope this is a temporary workaround
-tpl_pkg_name: "terraform-provider-libvirt-0.6.0+git.1569597268.1c8597df.Fedora_28.x86_64.tar.gz"
+  - awscli
 
 # The list of virtualization packages managed by dnf/yum
 virtualization_pkg_list:
@@ -50,7 +58,6 @@ virtualization_pkg_list:
   - qemu-kvm
   - virt-manager
   - virt-viewer
-  - guestfs-browser
   - libguestfs-tools
   - python3-libguestfs
   - virt-top
@@ -60,25 +67,23 @@ container_tools_pkg_list:
   - podman
   - buildah
   - skopeo
-  - docker
-  - atomic
-  - origin-clients
-  - flatpack
 
 # Enable/disable minikube setup
-setup_minikube: true
+setup_minikube: false
 
 # The list of runtimes managed by yum/dnf
 runtimes_pkg_list:
   - golang
   - java-11-openjdk.x86_64
   - java-11-openjdk-devel
+  - rust
+  - cargo
+  - glibc-static
 
 # The list of multimedia utilities managed by yum/dnf
 multimedia_pkg_list:
   - gimp
   - darktable
-  - rawtherapee
   - raw-thumbnailer
   - ufraw
   - vlc

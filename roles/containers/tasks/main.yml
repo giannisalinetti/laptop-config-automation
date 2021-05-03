@@ -6,23 +6,6 @@
     state: present
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
-
-- name: "Install Docker package in Fedora releases prior to 31"
-  dnf:
-    name: docker
-    state: present
-  become: true
-  when: 
-    - ansible_facts['distribution'] == 'Fedora'
-    - ansible_facts['distribution_version'] | int < 31
-    - "'docker' in container_tools_pkg_list"
-  
-- name: "Configure container tools on RHEL"
-  yum:
-    name: "{{ container_tools_pkg_list }}"
-    state: present
-  become: true
-  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
   
 - name: "Template out registries configuration for Podman"
   template:

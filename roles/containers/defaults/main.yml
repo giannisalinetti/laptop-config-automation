@@ -4,10 +4,6 @@ container_tools_pkg_list:
   - podman
   - buildah
   - skopeo
-  - docker
-  - atomic
-  - origin-clients
-  - flatpack
 
 default_registries:
   - "'docker.io'"

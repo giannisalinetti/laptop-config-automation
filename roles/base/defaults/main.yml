@@ -1,0 +1,8 @@
+---
+base_pkg_list:
+  - vim
+  - git
+  - flatpak
+  - NetworkManager-openvpn-gnome
+  - setroubleshoot-server
+  - fedora-workstation-repositories

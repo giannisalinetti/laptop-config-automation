@@ -7,13 +7,6 @@
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
-- name: "Configure virtualization packages for RHEL"
-  yum:
-    name: "{{ virtualization_pkg_list }}"
-    state: present
-  become: true
-  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
-
 - name: "Collect package facts"
   package_facts:
     manager: auto

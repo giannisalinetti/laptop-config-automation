@@ -9,15 +9,6 @@
     - enable_rpmfusion
     - ansible_facts['distribution'] == 'Fedora'
 
-- name: "RPM Fusion repos are configured on RHEL"
-  dnf:
-    name: "https://download1.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_facts['distribution_version'] }}.noarch.rpm"
-    state: present
-  become: true
-  when: 
-    - enable_rpmfusion
-    - ansible_facts['distribution'] == 'RedHat'
-
 - name: "Configure basic tools and utilities"
   dnf:
     name: "{{ utilities_pkg_list }}"
@@ -25,12 +16,9 @@
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
-- name: "Configure basic tools and utilities"
-  yum:
-    name: "{{ utilities_pkg_list }}"
-    state: present
-  become: true
-  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
+- name: "Include Terraform configuration"
+  include_tasks: terraform.yml
+  when: "'terraform' in utilities_pkg_list"
 
 - name: "Include Restic configurations"
   include_tasks: restic.yml
@@ -39,14 +27,6 @@
 - name: "Include Google Cloud SDK latest packages"
   include_tasks: gcloud.yml
   when: "'google-cloud-sdk' in cloud_utils_pkg_list"
-
-- name: "Include Argo CD latest release"
-  include_tasks: argocd.yml
-  when: "'argocd' in utilities_no_pkg_list"
-
-- name: "Include Terraform latest release"
-  include_tasks: terraform.yml
-  when: "'terraform' in utilities_no_pkg_list"
 
 - name: "Ensure Tuned service is started and enabled"
   service:

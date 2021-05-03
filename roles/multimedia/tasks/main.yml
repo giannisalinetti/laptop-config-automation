@@ -7,15 +7,14 @@
   become: true
   when: (ansible_facts['distribution'] == 'Fedora') and (ansible_facts['distribution_version'] | int >= 30)
 
-- name: "Ensure multimedia packages are installed on RHEL"
-  yum:
-    name: "{{ multimedia_pkg_list }}"
-    state: present
-  become: true
-  when: (ansible_facts['distribution'] == 'RedHat') and (ansible_facts['distribution_version'] | int >= 7)
-
 - name: "Configure default Canon folder"
   file:
     path: "/home/{{ default_user }}/Pictures/Canon"
+    mode: 0755
+    state: directory
+
+- name: "Configure default Nikon folder"
+  file:
+    path: "/home/{{ default_user }}/Pictures/Nikon"
     mode: 0755
     state: directory
