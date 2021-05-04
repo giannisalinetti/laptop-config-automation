@@ -13,6 +13,7 @@ This playbook is intented to be executed on the local machine, thus the
 
 All the configurations are managed by dedicated roles, organized by type:
 
+- base
 - containers
 - dev_tools
 - dotfiles
@@ -21,10 +22,16 @@ All the configurations are managed by dedicated roles, organized by type:
 - utilities
 - virtualization
 
-To run the provisioning:
+### Prerequisites
+In order to access private repositories and sensitive data an SSH keypair 
+should be used. The same keypair is used to access the dotfiles private 
+repository in this scenario. The keypair must be created or copied 
+separately.
 
+### Provisioning
+To begin the provisionin simply run the following command:
 ```
-$ ansible-playbook main.yml'
+$ ansible-playbook main.yml -K'
 ```
 
 ### Maintainers

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+RESTIC_BIN=/usr/bin/restic
+BACKUP_FILES=$HOME/.restic_backup_files
+EXCLUDES=$HOME/.restic_excludes
+
+# Check args length
+BACKUP_PATH=$1
+if [ $# -ne 1 ]; then 
+  echo "Error: missing backup destination"
+  exit 1
+fi
+
+# Initialize repository if new
+if [ ! -f $BACKUP_PATH/config ]; then
+    echo "Uninitialized repository, running init script now"
+    exec ${RESTIC_BIN} -r $BACKUP_PATH init
+fi
+
+# Exec backup now
+exec ${RESTIC_BIN} backup \
+    --verbose 2 \
+    -r ${BACKUP_PATH} \
+    --files-from ${BACKUP_FILES} \
+    --exclude-file=${EXCLUDES} \
+    --exclude-caches \
+
+exit $?

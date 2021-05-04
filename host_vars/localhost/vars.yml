@@ -18,6 +18,7 @@ utilities_pkg_list:
   - git
   - tig
   - tmate
+  - rclone
   - alacritty
   - fish
   - tmate

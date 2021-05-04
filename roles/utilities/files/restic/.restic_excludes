@@ -1,0 +1,10 @@
+/home/gbsalinetti/.local/share/containers
+/home/gbsalinetti/.minikube/machines
+/home/gbsalinetti/.kube/cache
+/home/gbsalinetti/.cache
+/home/gbsalinetti/.vagrant.d/boxes
+/home/gbsalinetti/Pictures/Canon
+/home/gbsalinetti/Pictures/Nikon
+/home/gbsalinetti/go/pkg/mod/cache
+/home/gbsalinetti/go/src/github.com/openshift
+/home/gbsalinetti/go/src/k8s.io

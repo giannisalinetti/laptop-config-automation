@@ -1,9 +1,18 @@
 - name: "Restore restic config files"
-  synchronize:
-    src: files/restic/
+  copy:
+    src: "{{ item }}"
     dest: "/home/{{ default_user }}/"
     archive: true
     copy_links: true
+  loop:
+    - files/restic/.restic_backup_files
+    - files/restic/.restic_excludes
+
+- name: "Copy Restic script"
+  copy:
+    src: files/restic/restic-home-backup
+    dest: "/home/{{ default_user }}/.local/bin/"
+    mode: 0755
 
 - name: "Set Restic variables"
   lineinfile:
